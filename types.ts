@@ -14,6 +14,7 @@ export type CollectionConfig = {
 	fields?: string[];
 	filter?: Filter;
 	transform?: (input: object, utils: Record<string, Function>, collectionName: string) => object;
+	settings?: Record<string, any>;
 };
 
 export type IndexerConfig = {
@@ -26,6 +27,7 @@ export type IndexerConfig = {
 
 export type IndexerInterface = (config: IndexerConfig) => {
 	createIndex: (collection: string) => Promise<void>;
+	updateIndexSettings: (collection: string, collectionSettings: Record<string, any> | undefined) => Promise<void>;
 	deleteItems: (collection: string) => Promise<void>;
 	deleteItem: (collection: string, id: string) => Promise<void>;
 	updateItem: (collection: string, id: string, data: object, pk?: string) => Promise<void>;

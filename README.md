@@ -63,6 +63,7 @@ So, configuration should comes from one of next files:
 - `collections.<collection>.indexName: string` Force collection name when storing in search index
 - `collections.<collection>.collectionField: string` If set, such field with value of the collection name will be added
   to the indexed document. Useful with conjuction with the _indexName_ option
+- `collections.<collection>.settings: object` Used to pass additional indexing settings for the collection to the search engine (Currently only supported for [meilisearch](https://docs.meilisearch.com/reference/api/settings.html#update-settings).) 
 
 ### Examples
 
@@ -83,7 +84,27 @@ So, configuration should comes from one of next files:
 				"status": "published",
 				"stock": "inStock"
 			},
-			"fields": ["title", "image.id", "category.title", "brand.title", "tags", "description", "price", "rating"]
+			"fields": ["title", "image.id", "category.title", "brand.title", "tags", "description", "price", "rating"],
+			"settings": {
+                "searchableAttributes": [
+                    "title",
+					"description",
+					"tags",
+                    "category.title",
+                    "brand.title"
+                ],
+                "displayedAttributes": [
+                    "title",
+                    "image.id",
+                    "description"
+                ],
+                "sortableAttributes": [
+                    "category.title",
+                    "price",
+					"rating",
+					"brand.title"
+                ],
+            }
 		},
 		"posts": {
 			"indexName": "blog_posts",
@@ -122,6 +143,26 @@ const config = {
 					someCustomValue: 'Hello World!',
 				};
 			},
+			settings: {
+                searchableAttributes: [
+                    'title',
+					'description',
+					'tags',
+                    'category.title',
+                    'brand.title'
+                ],
+                displayedAttributes: [
+                    'title',
+                    'image.id',
+                    'description'
+                ],
+                sortableAttributes: [
+                    'category.title',
+                    'price',
+					'rating',
+					'brand.title'
+                ],
+            }
 		},
 	},
 };
@@ -194,7 +235,7 @@ Ignore ssl-certificate-error.
 {
 	"type": "elasticsearch",
 	"host": "http://search:9200/",
-	"ignore_cert": true,
+	"ignore_cert": true
 }
 ```
 
