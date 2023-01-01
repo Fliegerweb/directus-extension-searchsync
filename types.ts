@@ -15,6 +15,7 @@ export type CollectionConfig = {
 	filter?: Filter;
 	transform?: (input: object, utils: Record<string, Function>, collectionName: string) => object;
 	settings?: Record<string, any>;
+	computePk?: (input: object, collectionName: string) => string;
 };
 
 export type IndexerConfig = {

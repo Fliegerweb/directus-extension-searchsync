@@ -66,6 +66,7 @@ So, configuration should comes from one of next files:
 - `collections.<collection>.settings: object` Used to pass additional indexing settings for the collection to the search
   engine (Currently only supported for
   [meilisearch](https://docs.meilisearch.com/reference/api/settings.html#update-settings).)
+- `collections.<collection>.computePk: function` (Can only be defined in .js config file) A callback which can be used to calculate a custom primary key value used for an indexed document. This is useful for composite indexes where multiple collections are stored in the same index and might have overlapping primary keys.
 
 ### Examples
 
